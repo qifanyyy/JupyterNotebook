@@ -1,15 +1,3 @@
-# This script allows to crawl information and repositories from GitHub using the GitHub REST API (https://developer.github.com/v3/search/).
-#
-# Given a query, the script downloads for each repository returned by the query its ZIP file.
-# In addition, it also generates a CSV file containing the list of repositories queried.
-# For each query, GitHub returns a json file which is processed by this script to get information about repositories.
-#
-# The GitHub API limits the queries to get 100 elements per page and up to 1,000 elements in total.
-# To get more than 1,000 elements, the main query should be splitted in multiple subqueries using different time windows through the constant SUBQUERIES (it is a list of subqueries).
-#
-# As example, constant values are set to get the repositories on GitHub of the user 'rsain'.
-
-
 #############
 # Libraries #
 #############
@@ -27,7 +15,7 @@ import io
 import glob
 import os
 import zipfile
-dir_name = "/Users/qihongchen/desktop/notebooks/"
+dir_name = "/Users/yuqifan/Documents/github/Jupyter-results/"
 extension = ".zip"
 
 
@@ -42,8 +30,8 @@ QUERY = "jupyternotebook&&extension:ipynb"
 SUBQUERIES = ["+created%3A>%3D2020-01-1", "+created%3A<%3D2020-03-15"]
 PARAMETERS = "&per_page=100" #Additional parameters for the query (by default 100 items per page)
 DELAY_BETWEEN_QUERYS = 11 #The time to wait between different queries to GitHub (to avoid be banned)
-OUTPUT_FOLDER = "/Users/qihongchen/Desktop/notebooks/" #Folder where ZIP files will be stored
-OUTPUT_CSV_FILE = "/Users/qihongchen/Desktop/JupyterNotebook/repositories.csv" #Path to the CSV file generated as output
+OUTPUT_FOLDER = "/Users/yuqifan/Documents/GitHub/Jupyter-results/" #Folder where ZIP files will be stored
+OUTPUT_CSV_FILE = "/Users/yuqifan/Documents/GitHub/JupyterNotebook/repositories.csv" #Path to the CSV file generated as output
 
 
 #############
