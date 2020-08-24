@@ -39,7 +39,6 @@ for index in range(len(list_of_algos)):
             if every_word!="'" and every_word!="*" and every_word!="-":
                 list_of_algos[index]=list_of_algos[index].replace(every_word,' ')
 
-for i in list_of_algos:
-    print (i)
+print (len(list_of_algos))
 with open("output_of_algos.txt", "w") as output:
     output.write(str(list_of_algos))
