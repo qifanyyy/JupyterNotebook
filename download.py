@@ -64,20 +64,20 @@ SUBQUERIES = [
             #   ["+created%3A>%3D2018-04-1&created%3A<%3D2018-04-30"],
             #   ["+created%3A>%3D2018-05-1&created%3A<%3D2018-05-30"],
             #   ["+created%3A>%3D2018-06-1&created%3A<%3D2018-06-30"],
-              ["+created%3A>%3D2018-07-1&created%3A<%3D2018-07-30"],
-              ["+created%3A>%3D2018-08-1&created%3A<%3D2018-08-30"],
-              ["+created%3A>%3D2018-09-1&created%3A<%3D2018-09-30"],
-              ["+created%3A>%3D2018-10-1&created%3A<%3D2018-10-30"],
-              ["+created%3A>%3D2018-11-1&created%3A<%3D2018-11-30"],
-              ["+created%3A>%3D2018-12-1&created%3A<%3D2018-12-30"],
-              ["+created%3A>%3D2019-01-1&created%3A<%3D2019-01-30"],
-              ["+created%3A>%3D2019-02-1&created%3A<%3D2019-02-30"],
-              ["+created%3A>%3D2019-03-1&created%3A<%3D2019-03-30"],
-              ["+created%3A>%3D2019-04-1&created%3A<%3D2019-04-30"],
-              ["+created%3A>%3D2019-05-1&created%3A<%3D2019-05-30"],
-              ["+created%3A>%3D2019-06-1&created%3A<%3D2019-06-30"],
-              ["+created%3A>%3D2019-07-1&created%3A<%3D2019-07-30"],
-              ["+created%3A>%3D2019-08-1&created%3A<%3D2019-08-30"],
+            #   ["+created%3A>%3D2018-07-1&created%3A<%3D2018-07-30"],
+            #   ["+created%3A>%3D2018-08-1&created%3A<%3D2018-08-30"],
+            #   ["+created%3A>%3D2018-09-1&created%3A<%3D2018-09-30"],
+            #   ["+created%3A>%3D2018-10-1&created%3A<%3D2018-10-30"],
+            #   ["+created%3A>%3D2018-11-1&created%3A<%3D2018-11-30"],
+            #   ["+created%3A>%3D2018-12-1&created%3A<%3D2018-12-30"],
+            #   ["+created%3A>%3D2019-01-1&created%3A<%3D2019-01-30"],
+            #   ["+created%3A>%3D2019-02-1&created%3A<%3D2019-02-30"],
+            #   ["+created%3A>%3D2019-03-1&created%3A<%3D2019-03-30"],
+            #   ["+created%3A>%3D2019-04-1&created%3A<%3D2019-04-30"],
+            #   ["+created%3A>%3D2019-05-1&created%3A<%3D2019-05-30"],
+            #   ["+created%3A>%3D2019-06-1&created%3A<%3D2019-06-30"],
+            #   ["+created%3A>%3D2019-07-1&created%3A<%3D2019-07-30"],
+            #   ["+created%3A>%3D2019-08-1&created%3A<%3D2019-08-30"],
               ["+created%3A>%3D2019-09-1&created%3A<%3D2019-09-30"],
               ["+created%3A>%3D2019-10-1&created%3A<%3D2019-10-30"],
               ["+created%3A>%3D2019-11-1&created%3A<%3D2019-11-30"],
@@ -115,7 +115,7 @@ def check_end():
     dirs = "/Users/yuqifan/Documents/github/Jupyter-results/"
     num_files = len(os.listdir(dirs))-1
     print("number files = ", num_files)
-    if num_files == 500000:
+    if num_files >= 130000:
         return True
     else:
         return False
