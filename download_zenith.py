@@ -31,9 +31,8 @@ import os
 import zipfile
 import pathlib
 from http.client import IncompleteRead
-dir_name = "/data/stairs/JupyterNB/algorithms2/"
+dir_name = "/data/stairs/JupyterNB/algorithms/"
 extension = ".zip"
-switch = False
 import urllib
 #############
 # Constants #
@@ -78,13 +77,13 @@ def pre_processing():
 
     # for i in list_of_algos:
     #     print(i)
-    with open("output_of_algos2.txt", "w") as output:
+    with open("output_of_algos.txt", "w") as output:
         output.write(str(list_of_algos))
     return list_of_algos
 
 def write_result():
     print("writing out result...")
-    with open("/data/stairs/JupyterNB/result_part2.txt", "w") as output:
+    with open("/data/stairs/JupyterNB/result.txt", "w") as output:
         for folder in os.listdir(dir_name):
             if os.path.isdir(dir_name + folder + '/'):
                 length = len(os.listdir(dir_name + folder + '/'))
@@ -100,7 +99,7 @@ URL = "https://api.github.com/search/repositories?q=" #The basic URL to use the 
 #SUBQUERIES = [["+created%3A>%3D2012-01-1&created%3A<%3D2012-12-31"],["+created%3A>%3D2013-01-1&created%3A<%3D2013-12-31"],["+created%3A>%3D2014-01-1&created%3A<%3D2014-12-31"],["+created%3A>%3D2015-01-1&created%3A<%3D2015-12-31"],["+created%3A>%3D2016-01-1&created%3A<%3D2016-12-31"],["+created%3A>%3D2017-01-1&created%3A<%3D2017-12-31"],["+created%3A>%3D2018-01-1&created%3A<%3D2018-12-31"],["+created%3A>%3D2019-01-1&created%3A<%3D2019-12-31"],["+created%3A>%3D2020-01-1&created%3A<%3D2020-12-31"]]
 PARAMETERS = "&per_page=100" #Additional parameters for the query (by default 100 items per page)
 DELAY_BETWEEN_QUERYS = 11 #The time to wait between different queries to GitHub (to avoid be banned)
-OUTPUT_FOLDER = "/data/stairs/JupyterNB/algorithms2/" #Folder where ZIP files will be stored
+OUTPUT_FOLDER = "/data/stairs/JupyterNB/algorithms/" #Folder where ZIP files will be stored
 # OUTPUT_CSV_FILE = "/Users/qihongchen/desktop/JupyterNotebook/repositories.csv" #Path to the CSV file generated as output
 downloads = 0
 
@@ -250,9 +249,8 @@ countOfRepositories = 0
 # repositories = csv.writer(csvfile, delimiter=',')
 
 #Run queries to get information in json format and download ZIP file for each repository
-terms = pre_processing()[358:729]
+terms = pre_processing()[0:3]
 for term in terms:
-    print("Doing the #", terms.index(term))
     for subquery in range(1, len(SUBQUERIES)+1):
         downloads = 0
        # print("Processing subquery " + str(subquery) + " of " + str(len(SUBQUERIES)) + " ...")
@@ -264,23 +262,15 @@ for term in terms:
         # print("new qUERY = ",QUERY)
         url = URL + QUERY + str(SUBQUERIES[0]) + PARAMETERS
         # print("url = ", url)
-        try:
-            dataRead = simplejson.loads(getUrl(url))
-        except urllib.error.HTTPError:
-            continue
-            pass
+        dataRead = simplejson.loads(getUrl(url))
         if dataRead.get('total_count') != None:
             numberOfPages = int(math.ceil(dataRead.get('total_count')/100.0))
             for currentPage in range(1, numberOfPages+1):
                # print( "Processing page " + str(currentPage) + " of " + str(numberOfPages) + " ...")
                 url = URL + QUERY + str(SUBQUERIES[0]) + \
                     PARAMETERS + "&page=" + str(currentPage)
-                try:
-                    dataRead = simplejson.loads(getUrl(url))
-                except urllib.error.HTTPError:
-                    switch = True
-                    break
-                    pass
+                dataRead = simplejson.loads(getUrl(url))
+
                 #Iteration over all the repositories in the current json content page
                 try:
                     for item in dataRead['items']:
@@ -295,13 +285,13 @@ for term in terms:
                         fileToDownload = url[0:len(url)-4] + "/archive/master.zip"
                         fileName = item['full_name'].replace("/","#") + ".zip"
                         try:
-                            if not os.path.exists("/data/stairs/JupyterNB/algorithms2/"):
-                                os.mkdir("/data/stairs/JupyterNB/algorithms2/")
-                            if not os.path.exists("/data/stairs/JupyterNB/algorithms2/" + str(term)+'/'):
-                                os.mkdir("/data/stairs/JupyterNB/algorithms2/" + str(term)+'/')
+                            if not os.path.exists("/data/stairs/JupyterNB/algorithms/"):
+                                os.mkdir("/data/stairs/JupyterNB/algorithms/")
+                            if not os.path.exists("/data/stairs/JupyterNB/algorithms/" + str(term)+'/'):
+                                os.mkdir("/data/stairs/JupyterNB/algorithms/" + str(term)+'/')
                             try:
                                 wget.download(
-                                    fileToDownload, out="/data/stairs/JupyterNB/algorithms2/" + str(term)+'/')
+                                    fileToDownload, out="/data/stairs/JupyterNB/algorithms/" + str(term)+'/')
                                 downloads += 1
                             except IncompleteRead:
                                 pass
@@ -316,9 +306,7 @@ for term in terms:
                     pass
                 if downloads == 1500:
                     break
-            if switch:
-                switch = False
-                continue
+
             #A delay between different subqueries
         time.sleep(5)
 

@@ -39,6 +39,12 @@ for index in range(len(list_of_algos)):
             if every_word!="'" and every_word!="*" and every_word!="-":
                 list_of_algos[index]=list_of_algos[index].replace(every_word,' ')
 
-print (len(list_of_algos))
+for i in range (len(list_of_algos)):
+    if "AC-" in list_of_algos[i]:
+        # print (i)
+        pass
+# print (Insertion+sort+algorithm/)
 with open("output_of_algos.txt", "w") as output:
     output.write(str(list_of_algos))
+
+print(len(list_of_algos))
