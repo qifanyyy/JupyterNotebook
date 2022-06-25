@@ -1,6 +1,6 @@
 # JupyterNotebook
-### Updated scripts to download all .ipynb files
-### Downloaded all algorithms to analyze their intentions
+### Updated scripts to download all .ipynb files on Github
+### Downloaded all algorithms to analyze their intentions 
 
 ## Date Oct.12, 2020
 ### Removed syntax error files by pathlib unlink, and the number relative small
